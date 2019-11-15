@@ -1,7 +1,9 @@
 <template>
-  <div class="home">
+  <div class="bim-box">
     <bimface-viewer></bimface-viewer>
+    
   </div>
+  
 </template>
 
 <script>
@@ -16,7 +18,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-.home{
+.bim-box{
   position: relative;
   min-height: 100vh;
 }

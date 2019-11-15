@@ -1,19 +1,21 @@
 <template>
-  <div id="view"></div>
+  <div class="view-box">
+    <div id="view"></div>
+  </div>
 </template>
 <script>
 export default {
   data() {
     return {
+      modelUrl: './05',
       viewer: '',
       BimfaceLoaderConfig: new BimfaceSDKLoaderConfig()
     }
   },
   mounted() {
     this.BimfaceLoaderConfig.dataEnvType = BimfaceEnvOption.Local
-    this.BimfaceLoaderConfig.sdkPath = './jssdk'
-    this.BimfaceLoaderConfig.path = 'http://filecdn.jue.sh/demo/viewToken.json'
-
+    this.BimfaceLoaderConfig.sdkPath = this.modelUrl+'/jssdk'
+    this.BimfaceLoaderConfig.path = this.modelUrl+'/viewToken.json'
     BimfaceSDKLoader.load(
       this.BimfaceLoaderConfig,
       this.onSDKLoadSucceeded,
@@ -25,7 +27,6 @@ export default {
       if (viewMetaData.viewType == '3DView') {
         let view = document.getElementById('view')
         let config = new Glodon.Bimface.Application.WebApplication3DConfig()
-        console.log(config)
         config.enableViewHouse = false //隐藏home图标
         config.Toolbars = ['MainToolbar']
         config.Buttons = [
@@ -40,8 +41,10 @@ export default {
         ]
         config.domElement = view
         let viewer3D = new Glodon.Bimface.Application.WebApplication3D(config)
+
         this.viewer = viewer3D.getViewer()
         this.viewer.addModel(viewMetaData)
+        this.setBackgroundColor()
       }
     },
     onSDKLoadFailed(viewMetaData) {},
@@ -51,11 +54,24 @@ export default {
       this.viewer.getModelTree(objectdata => {
         console.log(objectdata)
       })
+    },
+
+    //设置背景颜色
+    setBackgroundColor() {
+      var solidColor = new Glodon.Web.Graphics.Color(250, 250, 250, 0)
+      this.viewer.setBackgroundColor(solidColor)
+      // this.viewer.render();
     }
   }
 }
 </script>
 <style lang="less" scoped>
+.view-box{
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  z-index: 1;
+}
 #view {
   position: absolute;
   width: 100%;
