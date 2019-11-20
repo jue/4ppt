@@ -24,7 +24,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   padding: 0;
-  background: url(https://img14.360buyimg.com/uba/jfs/t1/99322/14/2339/2892/5dce3d61E74213df8/e81abd2efc920499.png) #FCF9F2;
+  background: url(https://img14.360buyimg.com/uba/jfs/t1/99322/14/2339/2892/5dce3d61E74213df8/e81abd2efc920499.png)
+    #fcf9f2;
 }
 a {
   text-decoration: none;
@@ -40,5 +41,9 @@ img {
 [class*=' el-icon-bimgo-'],
 [class^='el-icon-bimgo-'] {
   font-family: 'iconfont' !important;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
 </style>

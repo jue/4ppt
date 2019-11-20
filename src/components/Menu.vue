@@ -11,7 +11,12 @@
         <div class="sub-name">系统管理员</div>
       </div>
 
-      <ul class="list">
+      <ul class="list" @click="menuSwitch">
+        <li>
+          <router-link to="/">
+            <i class="iconfont el-icon-bimgo-shouye"></i>总览
+          </router-link>
+        </li>
         <li>
           <router-link to="equipment">
             <i class="iconfont el-icon-bimgo-equipment"></i>设备列表
@@ -24,7 +29,7 @@
         </li>
       </ul>
       <el-divider content-position="left">辅助功能</el-divider>
-      <ul class="list">
+      <ul class="list" @click="menuSwitch">
         <li>
           <router-link to="point">
             <i class="iconfont el-icon-bimgo-shikou"></i>视点

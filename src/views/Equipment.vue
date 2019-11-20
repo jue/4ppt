@@ -37,19 +37,12 @@ export default {
 </script>
 <style lang="less" scoped>
 .eq-box {
-  position: absolute;
-  width: 355px;
-  max-height: calc(100vh - 150px);
-  overflow-y: auto;
-  top: 75px;
-  left: 20px;
   display: flex;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15);
-  border-radius: 3px;
-  overflow: hidden;
-  background: #fff;
 }
 /deep/ .el-tree{
   width: 100%;
+}
+/deep/ .el-tree-node{
+  padding: 2px 0;
 }
 </style>
