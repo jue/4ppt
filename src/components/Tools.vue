@@ -13,7 +13,7 @@
     </div>
     <el-dropdown class="change-station" placement="bottom" trigger="click">
       <span class="el-dropdown-link">
-        <i class="el-icon-bimgo-swap"></i>
+        <i class="el-icon-bimgo-qiehuan"></i>
       </span>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item icon>下麦西</el-dropdown-item>
@@ -96,7 +96,7 @@ export default {
   cursor: pointer;
   width: 45px;
   background-color: #f8f8f8;
-  .el-icon-bimgo-swap {
+  .el-icon-bimgo-qiehuan {
     color: #409eff;
     font-size: 22px;
   }
