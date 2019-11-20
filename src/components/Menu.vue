@@ -50,7 +50,7 @@
         </li>
         <li>
           <router-link to="tags">
-            <i class="iconfont el-icon-bimgo-ditie1"></i>进出站时间
+            <i class="iconfont el-icon-bimgo-ditie1"></i>显示进站时间
           </router-link>
         </li>
       </ul>
