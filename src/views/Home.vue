@@ -1,10 +1,12 @@
 <template>
   <div class="bim-box">
-    <bimface-viewer class="z-1"></bimface-viewer>
+    <bimface-viewer class="abs z-1"></bimface-viewer>
     <!-- 左上角工具栏 -->
-    <Tools class="z-2"></Tools>
+    <Tools class="abs z-2"></Tools>
+    <div class="router-view abs z-2">
+      <router-view></router-view>
+    </div>
   </div>
-  
 </template>
 
 <script>
@@ -21,15 +23,18 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-.bim-box{
+.abs {
+  position: absolute;
+}
+.bim-box {
   position: relative;
   min-height: 100vh;
 }
 
-.z-1{
+.z-1 {
   z-index: 1;
 }
-.z-2{
+.z-2 {
   z-index: 2;
 }
 </style>

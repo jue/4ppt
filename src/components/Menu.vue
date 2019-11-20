@@ -13,12 +13,12 @@
 
       <ul class="list">
         <li>
-          <router-link to="/">
+          <router-link to="equipment">
             <i class="iconfont el-icon-bimgo-equipment"></i>设备列表
           </router-link>
         </li>
         <li>
-          <router-link to="/">
+          <router-link to="keshang">
             <i class="iconfont el-icon-bimgo-shoushang"></i>客伤点
           </router-link>
         </li>
@@ -26,12 +26,12 @@
       <el-divider content-position="left">辅助功能</el-divider>
       <ul class="list">
         <li>
-          <router-link to="/">
+          <router-link to="point">
             <i class="iconfont el-icon-bimgo-shikou"></i>视点
           </router-link>
         </li>
         <li>
-          <router-link to="/">
+          <router-link to="tags">
             <i class="iconfont el-icon-bimgo-biaoqian"></i>标签
           </router-link>
         </li>
