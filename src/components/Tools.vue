@@ -12,9 +12,9 @@
       <i class="iconfont el-icon-bimgo-search"></i>
     </div>
     <el-dropdown class="change-station" placement="bottom" trigger="click">
-      <span class="el-dropdown-link">
+      <el-tooltip class="el-dropdown-link" content="切换车站" placement="right">
         <i class="el-icon-bimgo-qiehuan"></i>
-      </span>
+      </el-tooltip>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item icon>下麦西</el-dropdown-item>
         <el-dropdown-item icon>阅山湖公园</el-dropdown-item>
@@ -54,15 +54,9 @@ export default {
   justify-content: center;
 }
 .tools-box {
-  position: absolute;
-  top: 20px;
-  left: 20px;
   height: 45px;
   display: flex;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15);
-  border-radius: 3px;
   overflow: hidden;
-  background: #fff;
 }
 .logo {
   .flex;

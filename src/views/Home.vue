@@ -1,8 +1,10 @@
 <template>
   <div class="bim-box">
-    <bimface-viewer class="abs z-1"></bimface-viewer>
+    <bimface-viewer class="bimface-viewer abs z-1"></bimface-viewer>
     <!-- 左上角工具栏 -->
-    <Tools class="abs z-2"></Tools>
+    <Tools class="tools abs z-2"></Tools>
+    <Alert class="alert abs z-2"></Alert>
+    <Info></Info>
     <div class="router-view abs z-2" v-if="showRouterView">
       <router-view></router-view>
     </div>
@@ -13,12 +15,16 @@
 // @ is an alias to /src
 import BimfaceViewer from '@/components/bimface/Viewer.vue'
 import Tools from '@/components/Tools.vue'
+import Alert from '@/components/Alert.vue'
+import Info from '@/components/Info.vue'
 
 export default {
   name: 'home',
   components: {
     BimfaceViewer,
-    Tools
+    Tools,
+    Alert,
+    Info
   },
   data() {
     return {
@@ -73,5 +79,20 @@ export default {
 }
 .z-2 {
   z-index: 2;
+}
+.tools{
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.alert{
+  position: absolute;
+  top: 24.5px;
+  right: 20px;
 }
 </style>
