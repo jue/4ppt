@@ -10,7 +10,8 @@
 *:after {
   box-sizing: border-box;
   margin: 0;
-  transition: all 0.2s linear;
+  outline: none;
+  // transition: all 0.2s linear;
 }
 body {
   color: #303133;

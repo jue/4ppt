@@ -7,7 +7,7 @@
 export default {
   data() {
     return {
-      modelUrl: './05',
+      modelUrl: 'https://filecdn.jue.sh/demo',
       viewer: '',
       BimfaceLoaderConfig: new BimfaceSDKLoaderConfig()
     }
@@ -70,12 +70,10 @@ export default {
   position: relative;
   width: 100%;
   min-height: 100vh;
-  z-index: 1;
 }
 #view {
   position: absolute;
   width: 100%;
   height: 100%;
-  z-index: 1;
 }
 </style>
