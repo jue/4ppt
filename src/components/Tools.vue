@@ -16,13 +16,14 @@
         <i class="el-icon-bimgo-qiehuan"></i>
       </el-tooltip>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item icon>下麦西</el-dropdown-item>
-        <el-dropdown-item icon>阅山湖公园</el-dropdown-item>
-        <el-dropdown-item disabled>林城西路</el-dropdown-item>
-        <el-dropdown-item icon>白鹭湖</el-dropdown-item>
-        <el-dropdown-item icon>南垭路</el-dropdown-item>
-        <el-dropdown-item icon>喷水池</el-dropdown-item>
-        <el-dropdown-item icon>贵阳火车站</el-dropdown-item>
+        <el-dropdown-item 
+          v-for="(item,index) of stationList"
+          :key="index"
+          :disabled="$store.state.defStation.id == item.id"
+          @click.native="changeStation(item)"
+        >
+          {{item.name}}
+        </el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
 
@@ -31,6 +32,7 @@
 </template>
 <script>
 import Menu from '@/components/Menu.vue'
+import axios from 'axios'
 export default {
   components: {
     Menu
@@ -38,11 +40,25 @@ export default {
   data() {
     return {
       key: '', //搜索关键字
+      stationList: {}
     }
+  },
+  mounted(){
+    axios.get('./data/stations.json').then(res => {
+      this.stationList = res.data
+    })
   },
   methods: {
     menuSwitch() {
       this.$refs.menu.menuSwitch()
+    },
+    changeStation(json){
+      this.$store.commit('update_defStation', json)
+      this.$router.push({
+        query: {
+          s: json.id
+        }
+      })
     }
   }
 }

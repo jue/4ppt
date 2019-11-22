@@ -7,7 +7,7 @@
 export default {
   data() {
     return {
-      modelUrl: 'https://filecdn.jue.sh/demo',
+      modelUrl: this.$store.state.defStation.model_url,
       viewer: '',
       BimfaceLoaderConfig: new BimfaceSDKLoaderConfig()
     }
@@ -61,6 +61,17 @@ export default {
       var solidColor = new Glodon.Web.Graphics.Color(250, 250, 250, 0)
       this.viewer.setBackgroundColor(solidColor)
       // this.viewer.render();
+    },
+
+    //切换模型
+    changeView(){
+      console.log(this.viewer.removeView)
+    }
+  },
+  watch: {
+    $route(){
+      console.log(this.$route.query.s)
+      this.changeView(this.$route.query.s)
     }
   }
 }
@@ -76,4 +87,7 @@ export default {
   width: 100%;
   height: 100%;
 }
+
+// 重置bimface样式
+
 </style>

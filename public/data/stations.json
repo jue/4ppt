@@ -1,0 +1,22 @@
+[
+  {
+    "id": "03",
+    "name": "演示站",
+    "model_url": "https://filecdn.jue.sh/demo"
+  },
+  {
+    "id": "05",
+    "name": "林城西路",
+    "model_url": "https://filecdn.jue.sh/gyurt-05"
+  },
+  {
+    "id": "07",
+    "name": "演示站2",
+    "model_url": "https://filecdn.jue.sh/bimface-demo"
+  },
+  {
+    "id": "09",
+    "name": "阅山湖",
+    "model_url": "https://filecdn.jue.sh/gyurt-09"
+  }
+]

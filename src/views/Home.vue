@@ -4,7 +4,7 @@
     <!-- 左上角工具栏 -->
     <Tools class="tools abs z-2"></Tools>
     <Alert class="alert abs z-2"></Alert>
-    <Info></Info>
+    <Info v-show="$store.state.showInfo"></Info>
     <div class="router-view abs z-2" v-if="showRouterView">
       <router-view></router-view>
     </div>

@@ -44,14 +44,14 @@
       <el-divider content-position="left">开关</el-divider>
       <ul @click="menuSwitch" class="list">
         <li>
-          <router-link to="point">
+          <a href="javascript:;">
             <i class="iconfont el-icon-bimgo-btns"></i>模型操作按钮
-          </router-link>
+          </a>
         </li>
         <li>
-          <router-link to="tags">
+          <a href="javascript:;" @click="$store.state.showInfo = true">
             <i class="iconfont el-icon-bimgo-ditie1"></i>显示进站时间
-          </router-link>
+          </a>
         </li>
       </ul>
       <el-divider></el-divider>

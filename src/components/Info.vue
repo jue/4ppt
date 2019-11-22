@@ -1,8 +1,8 @@
 <template>
-  <div class="info-box">
+  <div class="info-box" v-drag>
     <div class="head">
-      <div class="name">林城西路站</div>
-      <i class="iconfont el-icon-bimgo-close"></i>
+      <div class="name">{{$store.state.defStation.name}}</div>
+      <i @click="closeInfo" class="iconfont el-icon-bimgo-close"></i>
     </div>
     <div class="body">
       <div class="line-name">地铁1号线</div>
@@ -32,6 +32,15 @@
     </div>
   </div>
 </template>
+<script>
+export default {
+  methods: {
+    closeInfo(){
+      this.$store.commit('update_showInfo', false)
+    }
+  }
+}
+</script>
 <style lang="less" scoped>
 .info-box {
   position: absolute;
