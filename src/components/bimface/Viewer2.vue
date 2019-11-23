@@ -4,6 +4,7 @@
   </div>
 </template>
 <script>
+//bimface在线加载模型
 import axios from 'axios'
 export default {
   data() {

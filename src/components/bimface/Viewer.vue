@@ -4,6 +4,7 @@
   </div>
 </template>
 <script>
+//bimface离线加载模型
 export default {
   data() {
     return {
