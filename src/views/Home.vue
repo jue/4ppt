@@ -1,6 +1,6 @@
 <template>
   <div class="bim-box">
-    <bimface-viewer class="bimface-viewer abs z-1"></bimface-viewer>
+    <Viewer class="bim-viewer abs z-1"></Viewer>
     <!-- 左上角工具栏 -->
     <Tools class="tools abs z-2"></Tools>
     <Alert class="alert abs z-2"></Alert>
@@ -13,7 +13,8 @@
 
 <script>
 // @ is an alias to /src
-import BimfaceViewer from '@/components/bimface/Viewer2.vue'
+// import Viewer from '@/components/bimface/Viewer2.vue'
+import Viewer from '@/components/forge/Viewer.vue'
 import Tools from '@/components/Tools.vue'
 import Alert from '@/components/Alert.vue'
 import Info from '@/components/Info.vue'
@@ -21,7 +22,7 @@ import Info from '@/components/Info.vue'
 export default {
   name: 'home',
   components: {
-    BimfaceViewer,
+    Viewer,
     Tools,
     Alert,
     Info
