@@ -3,24 +3,24 @@
     "id": "03",
     "name": "演示站",
     "model_url": "https://filecdn.jue.sh/demo",
-    "fileId": 1359155267044192
+    "fileId": 1724432338945504
   },
   {
     "id": "05",
     "name": "林城西路",
     "model_url": "https://filecdn.jue.sh/gyurt-05",
-    "fileid": 1737035989092000
+    "fileId": 1737035989092000
   },
   {
     "id": "07",
     "name": "演示站2",
     "model_url": "https://filecdn.jue.sh/bimface-demo",
-    "fileid": 1724427673454080
+    "fileId": 1724427673454080
   },
   {
     "id": "09",
     "name": "新寨站",
     "model_url": "https://filecdn.jue.sh/gyurt-09",
-    "fileid": 1720067023816192
+    "fileId": 1720067023816192
   }
 ]
