@@ -13,7 +13,7 @@
 
 <script>
 // @ is an alias to /src
-import BimfaceViewer from '@/components/bimface/Viewer.vue'
+import BimfaceViewer from '@/components/bimface/Viewer2.vue'
 import Tools from '@/components/Tools.vue'
 import Alert from '@/components/Alert.vue'
 import Info from '@/components/Info.vue'

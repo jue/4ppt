@@ -9,9 +9,10 @@ export default new Vuex.Store({
     showInfo: true,
     //默认车站
     defStation: {
-      id: "03",
-      name: "演示站",
-      model_url: "https://filecdn.jue.sh/demo"
+      id: "05",
+      name: "林城西路",
+      model_url: "https://filecdn.jue.sh/demo",
+      fileId: 1737035989092000
     }
   },
   mutations: {
