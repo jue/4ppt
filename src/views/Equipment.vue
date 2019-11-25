@@ -3,10 +3,10 @@
     <el-tree
       :data="eqList"
       :highlight-current="true"
+      :props="defaultProps"
       empty-text="加载中"
       node-key="id"
       show-checkbox
-      :props="defaultProps"
     ></el-tree>
   </div>
 </template>
@@ -38,11 +38,15 @@ export default {
 <style lang="less" scoped>
 .eq-box {
   display: flex;
+  background: #fff;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+  padding: 15px;
 }
-/deep/ .el-tree{
+/deep/ .el-tree {
   width: 100%;
 }
-/deep/ .el-tree-node{
+/deep/ .el-tree-node {
   padding: 2px 0;
 }
 </style>

@@ -8,6 +8,7 @@
     <div class="router-view abs z-2" v-if="showRouterView">
       <router-view></router-view>
     </div>
+    <Point></Point>
   </div>
 </template>
 
@@ -18,6 +19,7 @@ import Viewer from '@/components/forge/Viewer.vue'
 import Tools from '@/components/Tools.vue'
 import Alert from '@/components/Alert.vue'
 import Info from '@/components/Info.vue'
+import Point from '@/components/Point.vue'
 
 export default {
   name: 'home',
@@ -25,7 +27,8 @@ export default {
     Viewer,
     Tools,
     Alert,
-    Info
+    Info,
+    Point
   },
   data() {
     return {
@@ -64,15 +67,11 @@ export default {
 
 .router-view {
   position: absolute;
-  width: 355px;
+  width: 310px;
   max-height: calc(100vh - 150px);
   overflow-y: auto;
   top: 75px;
   left: 20px;
-  padding: 15px;
-  background: #fff;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15);
-  border-radius: 3px;
 }
 
 .z-1 {

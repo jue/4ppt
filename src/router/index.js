@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Equipment from "../views/Equipment.vue";
+import Points from "../views/Points.vue";
 
 Vue.use(VueRouter);
 
@@ -14,6 +15,11 @@ const routes = [
       path: "/equipment", 
       name: "equipment", 
       component: Equipment
+    },
+    {
+      path: "/points", 
+      name: "points", 
+      component: Points
     }]
   }
 ];

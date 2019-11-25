@@ -31,8 +31,8 @@
       <el-divider content-position="left">辅助功能</el-divider>
       <ul @click="menuSwitch" class="list">
         <li>
-          <router-link to="point">
-            <i class="iconfont el-icon-bimgo-shikou"></i>视点
+          <router-link to="points">
+            <i class="iconfont el-icon-bimgo-shikou"></i>视角
           </router-link>
         </li>
         <li>
@@ -44,7 +44,7 @@
       <el-divider content-position="left">开关</el-divider>
       <ul @click="menuSwitch" class="list">
         <li>
-          <a href="javascript:;">
+          <a href="javascript:;"  @click="$store.state.modelBtns = true">
             <i class="iconfont el-icon-bimgo-btns"></i>模型操作按钮
           </a>
         </li>
