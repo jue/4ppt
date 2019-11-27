@@ -34,22 +34,24 @@
           <router-link to="points">
             <i class="iconfont el-icon-bimgo-shikou"></i>视角
           </router-link>
+          <i @click="showPointEdit" class="more iconfont el-icon-bimgo-plus"></i>
         </li>
         <li>
           <router-link to="tags">
             <i class="iconfont el-icon-bimgo-biaoqian"></i>标签
           </router-link>
+          <i class="more iconfont el-icon-bimgo-plus"></i>
         </li>
       </ul>
       <el-divider content-position="left">开关</el-divider>
       <ul @click="menuSwitch" class="list">
         <li>
-          <a href="javascript:;"  @click="$store.state.modelBtns = true">
+          <a @click="$store.state.modelBtns = true" href="javascript:;">
             <i class="iconfont el-icon-bimgo-btns"></i>模型操作按钮
           </a>
         </li>
         <li>
-          <a href="javascript:;" @click="$store.state.showInfo = true">
+          <a @click="$store.state.showInfo = true" href="javascript:;">
             <i class="iconfont el-icon-bimgo-ditie1"></i>显示进站时间
           </a>
         </li>
@@ -76,6 +78,9 @@ export default {
   methods: {
     menuSwitch() {
       this.drawer = !this.drawer
+    },
+    showPointEdit(){
+      this.$store.commit('update_showPointEdit', true)
     }
   }
 }
@@ -112,6 +117,19 @@ export default {
   list-style: none;
   padding: 0;
   li {
+    display: flex;
+    .more{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 48px;
+      padding: 0 20px;
+      cursor: pointer;
+      color: rgba(0, 0, 0, 0.6);
+      &:hover{
+        color: rgba(0, 0, 0, 1);
+      }
+    }
     a {
       color: rgba(0, 0, 0, 0.87);
       display: flex;
@@ -119,6 +137,7 @@ export default {
       height: 48px;
       line-height: 48px;
       padding: 0 32px;
+      flex: 1;
       &:hover {
         background-color: rgba(0, 0, 0, 0.05);
       }

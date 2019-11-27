@@ -9,14 +9,16 @@ export default new Vuex.Store({
     showInfo: true,
     //默认车站_bimface
     defStation: {
-      "id": "03",
+      "id": "01",
       "name": "演示站",
       "model_url": "https://filecdn.jue.sh/demo",
       "fileId": 1724432338945504,
-      "forge_url": 'https://filecdn.jue.sh/data/228159488-05--rvt/Resource/____/3D/3D.svf'
+      "forge_url": "https://filecdn.jue.sh/gyurt/L01Z01/Resource/____/3D/3D.svf"
     },
     //是否显示模型按钮
-    modelBtns: false
+    modelBtns: false,
+    //是否显示视角编辑框
+    showPointEdit: false
   },
   mutations: {
     update_showInfo(state, status) {
@@ -25,8 +27,11 @@ export default new Vuex.Store({
     update_defStation(state, json) {
       state.defStation = json;
     },
-    update_modelBtns(state, status){
+    update_modelBtns(state, status) {
       state.modelBtns = status
+    },
+    update_showPointEdit(state, status){
+      state.showPointEdit = status
     }
   },
   actions: {},

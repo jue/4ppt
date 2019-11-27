@@ -4,6 +4,7 @@
   </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
   data() {
     return {
@@ -13,15 +14,30 @@ export default {
   mounted() {
     this.seal = new Seal(document.querySelector('#view'), {
       name: '3d',
-      docid:
-        'https://filecdn.jue.sh/data/228159488-05--rvt/Resource/____/3D/3D.svf',
+      docid: 'https://filecdn.jue.sh/gyurt/L01Z01/Resource/____/3D/3D.svf',
       env: 'Local'
     })
 
     this.seal.setToolBarVisible(false)
   },
+  methods: {
+    //获取当前模型state
+    getState() {
+      return this.seal.getCurrentState()
+    },
+    //获取当前模型state截图
+    getShot() {
+      return this.seal.getScreenShot(203, 100).then(res => {
+        return res
+      })
+    },
+    //恢复视角
+    restoreState(state) {
+      this.seal.restoreState(state)
+    }
+  },
   watch: {
-    '$store.state.modelBtns': function(){
+    '$store.state.modelBtns': function() {
       this.seal.setToolBarVisible(this.$store.state.modelBtns)
     }
   }

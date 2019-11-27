@@ -44,8 +44,8 @@ export default {
 <style lang="less" scoped>
 .info-box {
   position: absolute;
-  top: 24.5px;
-  right: 80px;
+  top: 20px;
+  left: 395px;
   z-index: 2;
   background: #008cd6;
   width: 250px;

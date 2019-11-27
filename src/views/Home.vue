@@ -1,6 +1,6 @@
 <template>
   <div class="bim-box">
-    <Viewer class="bim-viewer abs z-1"></Viewer>
+    <Viewer class="bim-viewer abs z-1" ref="view"></Viewer>
     <!-- 左上角工具栏 -->
     <Tools class="tools abs z-2"></Tools>
     <Alert class="alert abs z-2"></Alert>
@@ -8,7 +8,14 @@
     <div class="router-view abs z-2" v-if="showRouterView">
       <router-view></router-view>
     </div>
-    <Point></Point>
+
+    <Point :points="points" @restoreState="restoreState"></Point>
+    <point-edit
+      :currPoint="currPoint"
+      @getShot="getShot"
+      @getState="getState"
+      @savePoint="savePoint"
+    ></point-edit>
   </div>
 </template>
 
@@ -20,7 +27,9 @@ import Tools from '@/components/Tools.vue'
 import Alert from '@/components/Alert.vue'
 import Info from '@/components/Info.vue'
 import Point from '@/components/Point.vue'
+import PointEdit from '@/components/PointEdit.vue'
 
+import axios from 'axios'
 export default {
   name: 'home',
   components: {
@@ -28,23 +37,59 @@ export default {
     Tools,
     Alert,
     Info,
-    Point
+    Point,
+    PointEdit
   },
   data() {
     return {
-      showRouterView: false
+      showRouterView: false,
+
+      pointdataUrl: 'https://api.myjson.com/bins/9k8ma', //视角数据URL
+      points: [], //视角列表
+      isShowPointEdit: false, //是否显示视角编辑框
+      currPoint: {
+        name: '',
+        state: {},
+        shot: ''
+      }
     }
   },
   mounted() {
     this.showRouter()
+
+    //获取视角列表
+    axios.get(this.pointdataUrl).then(res => {
+      this.points = res.data
+    })
   },
   methods: {
-    showRouter(){
+    //获取当前模型state
+    getState(callback) {
+      callback(this.$refs.view.getState())
+    },
+    getShot(callback) {
+      callback(this.$refs.view.getShot())
+    },
+    showRouter() {
       if (this.$route.name === 'home') {
-          this.showRouterView = false
-        } else {
-          this.showRouterView = true
-        }
+        this.showRouterView = false
+      } else {
+        this.showRouterView = true
+      }
+    },
+    //保存视角
+    savePoint(point) {
+      this.points.push(this.currPoint)
+      axios.put(this.pointdataUrl, this.points).then(res => {
+        this.$message.success('视角保存成功')
+        this.currPoint = { name: '', state: {}, shot: '' }
+        this.$store.commit('update_showPointEdit', false)
+      })
+    },
+
+    //恢复视角
+    restoreState(state){
+      this.$refs.view.restoreState(state)
     }
   },
   watch: {
@@ -80,7 +125,7 @@ export default {
 .z-2 {
   z-index: 2;
 }
-.tools{
+.tools {
   position: absolute;
   top: 20px;
   left: 20px;
@@ -90,7 +135,7 @@ export default {
   background: #fff;
 }
 
-.alert{
+.alert {
   position: absolute;
   top: 24.5px;
   right: 20px;
