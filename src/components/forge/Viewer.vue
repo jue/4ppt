@@ -12,15 +12,21 @@ export default {
     }
   },
   mounted() {
+    console.log(this.$store.state.currSid)
+
     this.seal = new Seal(document.querySelector('#view'), {
       name: '3d',
-      docid: 'https://filecdn.jue.sh/gyurt/L01Z01/Resource/____/3D/3D.svf',
+      docid: this.$store.state.stationList[this.$store.state.currSid].forge_url,
       env: 'Local'
     })
 
     this.seal.setToolBarVisible(false)
   },
   methods: {
+    //加载模型
+    loadModel(){
+      this.seal.loadModel(this.$store.state.stationList[this.$store.state.currSid].forge_url)
+    },
     //获取当前模型state
     getState() {
       return this.seal.getCurrentState()

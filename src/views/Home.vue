@@ -2,7 +2,7 @@
   <div class="bim-box">
     <Viewer class="bim-viewer abs z-1" ref="view"></Viewer>
     <!-- 左上角工具栏 -->
-    <Tools class="tools abs z-2"></Tools>
+    <Tools @changeStation="changeStation" class="tools abs z-2"></Tools>
     <Alert class="alert abs z-2"></Alert>
     <Info v-show="$store.state.showInfo"></Info>
     <div class="router-view abs z-2" v-if="showRouterView">
@@ -43,24 +43,27 @@ export default {
   data() {
     return {
       showRouterView: false,
-
-      pointdataUrl: 'https://api.myjson.com/bins/9k8ma', //视角数据URL
       points: [], //视角列表
       isShowPointEdit: false, //是否显示视角编辑框
       currPoint: {
         name: '',
         state: {},
         shot: ''
-      }
+      },
+      currSid: ''
+    }
+  },
+  beforeMount() {
+    //设置默认站点SID
+    if (this.$route.query.s != '') {
+      this.$store.commit('update_currSid', this.$route.query.s)
     }
   },
   mounted() {
     this.showRouter()
 
-    //获取视角列表
-    axios.get(this.pointdataUrl).then(res => {
-      this.points = res.data
-    })
+    //初始化车站
+    this.init()
   },
   methods: {
     //获取当前模型state
@@ -78,18 +81,48 @@ export default {
       }
     },
     //保存视角
-    savePoint(point) {
+    savePoint() {
       this.points.push(this.currPoint)
-      axios.put(this.pointdataUrl, this.points).then(res => {
-        this.$message.success('视角保存成功')
-        this.currPoint = { name: '', state: {}, shot: '' }
-        this.$store.commit('update_showPointEdit', false)
-      })
+      axios
+        .put(
+          this.$store.state.stationList[this.$store.state.currSid].pointDataUrl,
+          this.points
+        )
+        .then(res => {
+          this.$message.success('视角保存成功')
+          this.currPoint = { name: '', state: {}, shot: '' }
+          this.$store.commit('update_showPointEdit', false)
+        })
     },
 
     //恢复视角
-    restoreState(state){
+    restoreState(state) {
       this.$refs.view.restoreState(state)
+    },
+
+    //获取当前车站视角列表
+    getPointsList() {
+      //获取视角列表
+      axios
+        .get(
+          this.$store.state.stationList[this.$store.state.currSid].pointDataUrl
+        )
+        .then(res => {
+          this.points = res.data
+        })
+    },
+
+    //第一次打开
+    init() {
+      this.getPointsList()
+      console.log(this.$store.state.currSid)
+    },
+
+    //切换车站
+    changeStation() {
+      //更换模型
+      this.$refs.view.loadModel()
+      this.getPointsList()
     }
   },
   watch: {

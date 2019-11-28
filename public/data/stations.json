@@ -1,16 +1,12 @@
-[
-  {
-    "id": "01",
-    "name": "演示站",
-    "model_url": "https://filecdn.jue.sh/demo",
-    "fileId": 1724432338945504,
-    "forge_url": "https://filecdn.jue.sh/gyurt/L01Z01/Resource/____/3D/3D.svf"
+{
+  "L01Z01" : {
+    "name": "窦关站",
+    "forge_url": "https://filecdn.jue.sh/gyurt/L01Z01/Resource/____/3D/3D.svf",
+    "pointDataUrl" : "https://api.myjson.com/bins/9k8ma"
   },
-  {
-    "id": "05",
+  "L01Z02": {
     "name": "林城西路",
-    "model_url": "https://filecdn.jue.sh/gyurt-05",
-    "fileId": 1737035989092000,
-    "forge_url": "https://filecdn.jue.sh/data/228159488-05--rvt/Resource/____/3D/3D.svf"
+    "forge_url": "https://filecdn.jue.sh/data/228159488-05--rvt/Resource/____/3D/3D.svf",
+    "pointDataUrl" : "https://api.myjson.com/bins/nj5k2"
   }
-]
+}

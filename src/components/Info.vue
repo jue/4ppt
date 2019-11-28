@@ -1,7 +1,7 @@
 <template>
   <div class="info-box" v-drag>
     <div class="head">
-      <div class="name">{{$store.state.defStation.name}}</div>
+      <div class="name">{{$store.state.stationList[$store.state.currSid].name}}</div>
       <i @click="closeInfo" class="iconfont el-icon-bimgo-close"></i>
     </div>
     <div class="body">

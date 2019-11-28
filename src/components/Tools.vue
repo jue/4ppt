@@ -17,10 +17,10 @@
       </el-tooltip>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item 
-          v-for="(item,index) of stationList"
+          v-for="(item,index) of $store.state.stationList"
           :key="index"
-          :disabled="$store.state.defStation.id == item.id"
-          @click.native="changeStation(item)"
+          :disabled="$store.state.currSid == index"
+          @click.native="changeStation(index)"
         >
           {{item.name}}
         </el-dropdown-item>
@@ -43,22 +43,19 @@ export default {
       stationList: {}
     }
   },
-  mounted(){
-    axios.get('./data/stations.json').then(res => {
-      this.stationList = res.data
-    })
-  },
   methods: {
     menuSwitch() {
       this.$refs.menu.menuSwitch()
     },
-    changeStation(json){
-      this.$store.commit('update_defStation', json)
+    changeStation(sid){
+      this.$store.commit('update_currSid', sid)
       this.$router.push({
         query: {
-          s: json.id
+          s: sid
         }
       })
+      this.$emit('changeStation', sid)
+
     }
   }
 }
