@@ -55,7 +55,7 @@ export default {
   },
   beforeMount() {
     //设置默认站点SID
-    if (this.$route.query.s != '') {
+    if (this.$route.query.s != undefined && this.$route.query.s != '') {
       this.$store.commit('update_currSid', this.$route.query.s)
     }
   },
@@ -115,7 +115,6 @@ export default {
     //第一次打开
     init() {
       this.getPointsList()
-      console.log(this.$store.state.currSid)
     },
 
     //切换车站

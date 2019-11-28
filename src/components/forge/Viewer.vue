@@ -12,8 +12,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$store.state.currSid)
-
     this.seal = new Seal(document.querySelector('#view'), {
       name: '3d',
       docid: this.$store.state.stationList[this.$store.state.currSid].forge_url,
@@ -24,8 +22,10 @@ export default {
   },
   methods: {
     //加载模型
-    loadModel(){
-      this.seal.loadModel(this.$store.state.stationList[this.$store.state.currSid].forge_url)
+    loadModel() {
+      this.seal.loadModel(
+        this.$store.state.stationList[this.$store.state.currSid].forge_url
+      )
     },
     //获取当前模型state
     getState() {
