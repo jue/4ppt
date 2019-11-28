@@ -32,13 +32,19 @@
       <ul @click="menuSwitch" class="list">
         <li>
           <a to="points" href="javascript:;">
-            <i class="iconfont el-icon-bimgo-shikou"></i>视角
+            <i class="iconfont el-icon-bimgo-dongtaishijiao"></i>视角
           </a>
           <i @click="showPointEdit" class="more iconfont el-icon-bimgo-plus"></i>
         </li>
         <li>
           <router-link to="tags">
-            <i class="iconfont el-icon-bimgo-biaoqian"></i>标签
+            <i class="iconfont el-icon-bimgo-tag"></i>标签
+          </router-link>
+          <i class="more iconfont el-icon-bimgo-plus"></i>
+        </li>
+        <li>
+          <router-link to="roam">
+            <i class="iconfont el-icon-bimgo-luxian1"></i>路线漫游
           </router-link>
           <i class="more iconfont el-icon-bimgo-plus"></i>
         </li>
