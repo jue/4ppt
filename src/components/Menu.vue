@@ -23,17 +23,17 @@
           </router-link>
         </li>
         <li>
-          <router-link to="keshang">
-            <i class="iconfont el-icon-bimgo-shoushang"></i>客伤点
+          <router-link to="accident">
+            <i class="iconfont el-icon-bimgo-accident"></i>客伤点
           </router-link>
         </li>
       </ul>
       <el-divider content-position="left">辅助功能</el-divider>
       <ul @click="menuSwitch" class="list">
         <li>
-          <router-link to="points">
+          <a to="points" href="javascript:;">
             <i class="iconfont el-icon-bimgo-shikou"></i>视角
-          </router-link>
+          </a>
           <i @click="showPointEdit" class="more iconfont el-icon-bimgo-plus"></i>
         </li>
         <li>

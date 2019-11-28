@@ -46,4 +46,16 @@ img {
 ::-webkit-scrollbar {
   display: none;
 }
+
+.danger {
+  color: #f56c6c!important;
+}
+
+.success {
+  color: #67c23a!important;
+}
+
+.warning {
+  color: #e6a23c!important;
+}
 </style>

@@ -34,9 +34,6 @@
 </template>
 <script>
 export default {
-  mounted(){
-    console.log(this.$store.state.currSid)
-  },
   methods: {
     closeInfo(){
       this.$store.commit('update_showInfo', false)

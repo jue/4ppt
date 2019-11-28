@@ -2,7 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Equipment from "../views/Equipment.vue";
-import Points from "../views/Points.vue";
+import Tags from "../views/Tags.vue";
 
 Vue.use(VueRouter);
 
@@ -17,9 +17,9 @@ const routes = [
       component: Equipment
     },
     {
-      path: "/points", 
-      name: "points", 
-      component: Points
+      path: "/tags", 
+      name: "tags", 
+      component: Tags
     }]
   }
 ];
