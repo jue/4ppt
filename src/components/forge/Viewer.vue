@@ -8,7 +8,8 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      seal: ''
+      seal: '',
+      loaded: false
     }
   },
   mounted() {
@@ -18,9 +19,27 @@ export default {
       env: 'Local'
     })
 
+    this.seal.on('geometry.loaded', () => {
+      this.loaded = true
+      this.$emit('modelLoaded')
+    })
+
+
     this.seal.setToolBarVisible(false)
+
+    this.dev()
   },
   methods: {
+    //代码开发测试
+    dev() {
+      let _this = this
+      this.seal.on('click', e => {
+        console.log(e)
+        _this.seal.markupExtension.add(e.point, e.dbId)
+      })
+
+      this.seal.fitToView([15643])
+    },
     //加载模型
     loadModel() {
       this.seal.loadModel(
@@ -40,11 +59,24 @@ export default {
     //恢复视角
     restoreState(state) {
       this.seal.restoreState(state)
+    },
+
+    //点击设置标签
+    setMarkUp() {
+      let _this = this
+      this.seal.on('click', e => {
+        console.log(e)
+        _this.seal.markupExtension.add(e.point, e.dbId)
+      })
     }
   },
   watch: {
     '$store.state.modelBtns': function() {
       this.seal.setToolBarVisible(this.$store.state.modelBtns)
+    },
+
+    loaded(){
+      this.dev()
     }
   }
 }

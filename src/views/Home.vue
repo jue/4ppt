@@ -1,6 +1,6 @@
 <template>
-  <div class="bim-box">
-    <Viewer class="bim-viewer abs z-1" ref="view"></Viewer>
+  <div class="bim-box" v-loading.fullscreen.lock="!modelLoaded">
+    <Viewer @modelLoaded="modelLoaded=true" class="bim-viewer abs z-1" ref="view"></Viewer>
     <!-- 左上角工具栏 -->
     <Tools @changeStation="changeStation" class="tools abs z-2"></Tools>
     <Alert class="alert abs z-2"></Alert>
@@ -50,7 +50,8 @@ export default {
         state: {},
         shot: ''
       },
-      currSid: ''
+      currSid: '',
+      modelLoaded: false //模型加载完成
     }
   },
   beforeMount() {
@@ -171,5 +172,14 @@ export default {
   position: absolute;
   top: 24.5px;
   right: 20px;
+}
+.no-click {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(250, 250, 250, 0);
+  z-index: 9999;
 }
 </style>
