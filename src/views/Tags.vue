@@ -40,6 +40,7 @@
 <script>
 import axios from 'axios'
 export default {
+  props: ['tags'],
   data() {
     return {
       list: [],
@@ -48,6 +49,7 @@ export default {
     }
   },
   mounted() {
+    this.list = this.tags
     this.getData('all')
   },
   methods: {
@@ -78,22 +80,23 @@ export default {
     },
 
     getData(type) {
-      axios.get('./data/tags.json').then(res => {
-        if (type == 'all') {
-          this.list = res.data
-          this.showSubTxt = false
-          this.type = 'all'
-          return false
-        }
+      console.log(this.tags)
+      console.log(this.list)
 
-        this.list = []
-        this.showSubTxt = true
-        this.type = type
-        res.data.forEach(ele => {
-          if (ele.type == type) {
-            this.list.push(ele)
-          }
-        })
+      if (type == 'all') {
+        this.list = this.tags
+        this.showSubTxt = false
+        this.type = 'all'
+        return false
+      }
+
+      this.list = []
+      this.showSubTxt = true
+      this.type = type
+      this.tags.forEach(ele => {
+        if (ele.type == type) {
+          this.list.push(ele)
+        }
       })
     }
   }

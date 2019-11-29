@@ -6,7 +6,7 @@
     <Alert class="alert abs z-2"></Alert>
     <Info v-show="$store.state.showInfo"></Info>
     <div class="router-view abs z-2" v-if="showRouterView">
-      <router-view></router-view>
+      <router-view :tags="tags"></router-view>
     </div>
 
     <Point :points="points" @restoreState="restoreState"></Point>
@@ -16,6 +16,11 @@
       @getState="getState"
       @savePoint="savePoint"
     ></point-edit>
+    <Tag-edit
+      :currTag="currTag"
+      @getForgeData="getForgeData"
+    ></Tag-edit>
+
   </div>
 </template>
 
@@ -28,6 +33,7 @@ import Alert from '@/components/Alert.vue'
 import Info from '@/components/Info.vue'
 import Point from '@/components/Point.vue'
 import PointEdit from '@/components/PointEdit.vue'
+import TagEdit from '@/components/TagEdit.vue'
 
 import axios from 'axios'
 export default {
@@ -38,12 +44,14 @@ export default {
     Alert,
     Info,
     Point,
-    PointEdit
+    PointEdit,
+    TagEdit
   },
   data() {
     return {
       showRouterView: false,
       points: [], //视角列表
+      tags: [], //标签列表
       isShowPointEdit: false, //是否显示视角编辑框
       currPoint: {
         name: '',
@@ -51,7 +59,14 @@ export default {
         shot: ''
       },
       currSid: '',
-      modelLoaded: false //模型加载完成
+      modelLoaded: false, //模型加载完成
+      currTag: {
+        type: '', //类型：camera / accident
+        name: '',
+        desc: '',
+        forge_data: {},
+        video_url: '' //摄像头的播放URL,示例是萤石云m3u8地址
+      }
     }
   },
   beforeMount() {
@@ -67,6 +82,10 @@ export default {
     this.init()
   },
   methods: {
+    //点击模型获取数据
+    getForgeData(type){
+      this.$refs.view.getState(type)
+    },
     //获取当前模型state
     getState(callback) {
       callback(this.$refs.view.getState())
@@ -113,9 +132,21 @@ export default {
         })
     },
 
+    //获取当前车站所有标签
+    getTagsList(){
+      axios
+        .get(
+          this.$store.state.stationList[this.$store.state.currSid].tagDataUrl
+        )
+        .then(res => {
+          this.tags = res.data
+        })
+    },
+
     //第一次打开
     init() {
       this.getPointsList()
+      this.getTagsList()
     },
 
     //切换车站

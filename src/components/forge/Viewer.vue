@@ -8,8 +8,7 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      seal: '',
-      loaded: false
+      seal: ''
     }
   },
   mounted() {
@@ -20,14 +19,10 @@ export default {
     })
 
     this.seal.on('geometry.loaded', () => {
-      this.loaded = true
       this.$emit('modelLoaded')
+
+      this.getForgeData('dd')
     })
-
-
-    this.seal.setToolBarVisible(false)
-
-    this.dev()
   },
   methods: {
     //代码开发测试
@@ -35,16 +30,29 @@ export default {
       let _this = this
       this.seal.on('click', e => {
         console.log(e)
-        _this.seal.markupExtension.add(e.point, e.dbId)
+        // _this.seal.markupExtension.add(e.point, e.dbId)
       })
 
-      this.seal.fitToView([15643])
+      // this.seal.fitToView([16124])
+
+      this.seal.markupExtension.add(
+        {x: -87.33223822421317, y: -76.76081060058664, z: -27.288406372070312},
+        16124,
+        {'innerHTML':'<i class="iconfont el-icon-bimgo-camera"></i>'}
+      )
     },
     //加载模型
     loadModel() {
       this.seal.loadModel(
         this.$store.state.stationList[this.$store.state.currSid].forge_url
       )
+    },
+    //点击模型获取数据
+    getForgeData(type){
+      console.log('00000')
+      // this.seal.on('click', e => {
+      //   console.log(e)
+      // })
     },
     //获取当前模型state
     getState() {
@@ -73,10 +81,6 @@ export default {
   watch: {
     '$store.state.modelBtns': function() {
       this.seal.setToolBarVisible(this.$store.state.modelBtns)
-    },
-
-    loaded(){
-      this.dev()
     }
   }
 }

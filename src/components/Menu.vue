@@ -40,7 +40,7 @@
           <router-link to="tags">
             <i class="iconfont el-icon-bimgo-tag"></i>标签
           </router-link>
-          <i class="more iconfont el-icon-bimgo-plus"></i>
+          <i @click="$store.commit('update_showTagEdit', true)" class="more iconfont el-icon-bimgo-plus"></i>
         </li>
         <li>
           <router-link to="roam">
