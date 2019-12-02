@@ -19,9 +19,10 @@ export default new Vuex.Store({
     stationList: {
       "L01Z01": {
         "name": "窦关站",
-        "forge_url": "https://filecdn.jue.sh/gyurt/L01Z01/Resource/____/3D/3D.svf",
-        "pointDataUrl": "https://api.myjson.com/bins/9k8ma",
-        "tagDataUrl": "https://api.myjson.com/bins/64puy"
+        //"forge_url": "https://filecdn.jue.sh/gyurt/L01Z01/Resource/____/3D/3D.svf",
+        "forge_url": "./01/Resource/____/3D/3D.svf",
+        "pointDataUrl": "https://api.myjson.com/bins/14tv2m",
+        "tagDataUrl": "https://api.myjson.com/bins/h0qla"
       },
       "L01Z02": {
         "name": "林城西路",
@@ -37,7 +38,12 @@ export default new Vuex.Store({
     //是否显示视角编辑框
     showPointEdit: false,
     //是否显示标签编辑框
-    showTagEdit: true
+    showTagEdit: false,
+
+    //功能开关
+    switch: {
+      setMarkUp: false
+    }
   },
   mutations: {
     update_showInfo(state, status) {
@@ -54,6 +60,10 @@ export default new Vuex.Store({
     },
     update_showTagEdit(state, status) {
       state.showTagEdit = status
+    },
+
+    update_setMarkUp(state, status) {
+      state.switch.setMarkUp = status
     }
   },
   actions: {},

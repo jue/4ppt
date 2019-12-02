@@ -1,12 +1,17 @@
 <template>
   <div class="bim-box" v-loading.fullscreen.lock="!modelLoaded">
-    <Viewer @modelLoaded="modelLoaded=true" class="bim-viewer abs z-1" ref="view"></Viewer>
+    <Viewer
+      @getClickData="getClickData"
+      @modelLoaded="modelLoaded=true"
+      class="bim-viewer abs z-1"
+      ref="view"
+    ></Viewer>
     <!-- 左上角工具栏 -->
     <Tools @changeStation="changeStation" class="tools abs z-2"></Tools>
     <Alert class="alert abs z-2"></Alert>
     <Info v-show="$store.state.showInfo"></Info>
     <div class="router-view abs z-2" v-if="showRouterView">
-      <router-view :tags="tags"></router-view>
+      <router-view :tags="tags" @addMarkUp="addMarkUp" ref="routerview"></router-view>
     </div>
 
     <Point :points="points" @restoreState="restoreState"></Point>
@@ -16,11 +21,7 @@
       @getState="getState"
       @savePoint="savePoint"
     ></point-edit>
-    <Tag-edit
-      :currTag="currTag"
-      @getForgeData="getForgeData"
-    ></Tag-edit>
-
+    <Tag-edit ref="tagEdit" :currTag="currTag" @saveTag="saveTag"></Tag-edit>
   </div>
 </template>
 
@@ -82,9 +83,16 @@ export default {
     this.init()
   },
   methods: {
-    //点击模型获取数据
-    getForgeData(type){
-      this.$refs.view.getState(type)
+    //设置模型标签
+    addMarkUp() {
+      this.tags.forEach(ele => {
+        this.$refs.view.addMarkUp(ele.forge_data, ele.type)
+      })
+    },
+    //点击模型获取当前构件数据
+    getClickData(json) {
+      this.currTag.forge_data = json
+      this.$refs.tagEdit.getForgeData_status = 2
     },
     //获取当前模型state
     getState(callback) {
@@ -99,6 +107,20 @@ export default {
       } else {
         this.showRouterView = true
       }
+    },
+    //保存标记点
+    saveTag() {
+      this.tags.push(this.currTag)
+      axios
+        .put(
+          this.$store.state.stationList[this.$store.state.currSid].tagDataUrl,
+          this.tags
+        )
+        .then(res => {
+          this.$message.success('标签保存成功')
+          this.$refs.tagEdit.reset()
+          this.$store.commit('update_showTagEdit', false)
+        })
     },
     //保存视角
     savePoint() {
@@ -133,7 +155,7 @@ export default {
     },
 
     //获取当前车站所有标签
-    getTagsList(){
+    getTagsList() {
       axios
         .get(
           this.$store.state.stationList[this.$store.state.currSid].tagDataUrl

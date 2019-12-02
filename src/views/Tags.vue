@@ -80,13 +80,11 @@ export default {
     },
 
     getData(type) {
-      console.log(this.tags)
-      console.log(this.list)
-
       if (type == 'all') {
         this.list = this.tags
         this.showSubTxt = false
         this.type = 'all'
+        this.$emit('addMarkUp')
         return false
       }
 
@@ -98,6 +96,7 @@ export default {
           this.list.push(ele)
         }
       })
+      this.$emit('addMarkUp')
     }
   }
 }

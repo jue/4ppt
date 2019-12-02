@@ -46,16 +46,20 @@ img {
 ::-webkit-scrollbar {
   display: none;
 }
+.model-tag {
+  color: #409eff;
+  font-size: 20px;
+}
 
 .danger {
-  color: #f56c6c!important;
+  color: #f56c6c !important;
 }
 
 .success {
-  color: #67c23a!important;
+  color: #67c23a !important;
 }
 
 .warning {
-  color: #e6a23c!important;
+  color: #e6a23c !important;
 }
 </style>

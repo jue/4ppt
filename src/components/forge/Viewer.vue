@@ -8,7 +8,8 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      seal: ''
+      seal: '',
+      currEle: {}
     }
   },
   mounted() {
@@ -20,27 +21,23 @@ export default {
 
     this.seal.on('geometry.loaded', () => {
       this.$emit('modelLoaded')
-
-      this.getForgeData('dd')
     })
+
+    this.seal.on('click', ele => {
+      if(this.$store.state.switch.setMarkUp){
+        if(this.seal.markupExtension.list && this.seal.markupExtension.list.length>0){
+          this.seal.markupExtension.removeAll()
+        }
+        this.setMarkUp()
+        this.$emit('getClickData', {
+          dbId: ele.dbId,
+          point: ele.point
+        })
+      }
+    })
+
   },
   methods: {
-    //代码开发测试
-    dev() {
-      let _this = this
-      this.seal.on('click', e => {
-        console.log(e)
-        // _this.seal.markupExtension.add(e.point, e.dbId)
-      })
-
-      // this.seal.fitToView([16124])
-
-      this.seal.markupExtension.add(
-        {x: -87.33223822421317, y: -76.76081060058664, z: -27.288406372070312},
-        16124,
-        {'innerHTML':'<i class="iconfont el-icon-bimgo-camera"></i>'}
-      )
-    },
     //加载模型
     loadModel() {
       this.seal.loadModel(
@@ -48,11 +45,26 @@ export default {
       )
     },
     //点击模型获取数据
-    getForgeData(type){
-      console.log('00000')
-      // this.seal.on('click', e => {
-      //   console.log(e)
-      // })
+    getForgeData1(type) {
+      let tmpHtml =
+        '<i style="color:#c33;" class="iconfont el-icon-bimgo-dingwei"></i>'
+
+      this.seal.on('click', event => {
+        if (this.seal.markupExtension.list.length) {
+          this.seal.markupExtension.removeAll()
+        }
+        this.seal.markupExtension.add(event.point, event.dbId, {
+          innerHTML: tmpHtml
+        })
+
+        this.$emit('getClickData', {
+          dbId: event.dbId,
+          point: event.point
+        })
+
+      })
+
+      return event
     },
     //获取当前模型state
     getState() {
@@ -72,9 +84,25 @@ export default {
     //点击设置标签
     setMarkUp() {
       let _this = this
-      this.seal.on('click', e => {
-        console.log(e)
-        _this.seal.markupExtension.add(e.point, e.dbId)
+      this.seal.on('click', ele => {
+        this.currEle = ele
+        _this.seal.markupExtension.add(ele.point, ele.dbId)
+      })
+    },
+
+    //添加标记符
+    addMarkUp(json, type){
+      console.log(json)
+      var ele = '<i class="model-tag iconfont el-icon-bimgo-dingwei"></i>'
+      if(type == 'camera'){
+        ele = '<i class="model-tag iconfont el-icon-bimgo-camera"></i>'
+      }
+      if(type == 'accident'){
+        ele = '<i class="model-tag iconfont el-icon-bimgo-accident"></i>'
+      }
+
+      this.seal.markupExtension.add(json.point, json.dbId, {
+        innerHTML: ele
       })
     }
   },

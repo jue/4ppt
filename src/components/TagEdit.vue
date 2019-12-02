@@ -29,13 +29,14 @@
           </el-tooltip>
         </el-form-item>
         <el-form-item label="网址" v-if="currTag.type=='camera'">
-          <el-input v-model="currTag.desc"></el-input>
+          <el-input v-model="currTag.video_url"></el-input>
         </el-form-item>
         <el-form-item label="描述">
           <el-input type="textarea" v-model="currTag.desc"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary">提交</el-button>
+          <el-button @click="saveTag" type="primary">提交</el-button>
+          <el-button @click="reset">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -47,11 +48,10 @@ export default {
   props: ['currTag'],
   data() {
     return {
-      tagDataUrl: 'https://api.myjson.com/bins/15jsmy',
       getForgeData_status: 0,
       getForgeData_json: [
         {
-          title: '开始选择构件点'
+          title: '开启选择构件点'
         },
         {
           title: '点击构件上位置'
@@ -65,27 +65,31 @@ export default {
   methods: {
     closeWindow() {
       this.$store.commit('update_showTagEdit', false)
+      this.reset()
+    },
+
+    reset() {
       this.getForgeData_status = 0
       this.currTag.type = ''
       this.currTag.name = ''
       this.currTag.desc = ''
       this.currTag.video_url = ''
       this.currTag.forge_data = {}
-      
+      this.$store.commit('update_setMarkUp', false)
     },
 
     //获取当前模型标记点开关
     getForgeData() {
-      if (this.currTag.type == '') {
-        this.$message.error('请先选择标签分类')
-        return false
-      }
+      // if (this.currTag.type == '') {
+      //   this.$message.error('请先选择标签分类')
+      //   return false
+      // }
 
-      if(this.getForgeData_status == 0){
+      if (this.getForgeData_status == 0) {
+        this.$store.commit('update_setMarkUp', true)
         this.getForgeData_status = 1
-        this.$emit('getForgeData', this.currTag.type)
+        // this.$emit('getForgeData', this.currTag.type)
       }
-
     },
 
     //获取当前模型state
@@ -101,18 +105,33 @@ export default {
       this.getShot()
     },
 
-    savePoint() {
-      if (this.currPoint.shot == '') {
-        this.$message.error('没有获取视角')
+    saveTag() {
+      if (this.currTag.name == '') {
+        this.$message.error('名称没有填写')
         return false
       }
 
-      if (this.currPoint.name == '') {
-        this.$message.error('没有为视角输入标题')
+      if (this.currTag.type == '') {
+        this.$message.error('分类没有选择')
         return false
       }
 
-      this.$emit('savePoint')
+      if (this.currTag.forge_data == '') {
+        this.$message.error('没有在模型中获取标记点')
+        return false
+      }
+
+      if (this.currTag.type == 'camera' && this.currTag.video_url == '') {
+        this.$message.error('视频地址没有配置')
+        return false
+      }
+
+      this.$emit('saveTag')
+    }
+  },
+  watch: {
+    'currTag.forge_data': function() {
+      // if (this.currTag.forge_data != '') this.getForgeData_status = 2
     }
   }
 }

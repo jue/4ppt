@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Equipment from "../views/Equipment.vue";
 import Tags from "../views/Tags.vue";
+import Dev from "../views/Dev.vue";
 
 Vue.use(VueRouter);
 
@@ -21,6 +22,11 @@ const routes = [
       name: "tags", 
       component: Tags
     }]
+  },
+  {
+    path: '/dev',
+    name: 'dev',
+    component: Dev,
   }
 ];
 
