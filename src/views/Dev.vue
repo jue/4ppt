@@ -2,15 +2,17 @@
   <div class="dev-box">
     <div id="view"></div>
     <div class="bar">
-      <el-button @click="addMarkUp">开启插入标签</el-button>
+      <el-button >开启插入标签</el-button>
     </div>
   </div>
 </template>
 <script>
+// import Markup3D from '@/components/forge-extension/Viewing.Extension.Markup3D.min.js'
 export default {
   data() {
     return {
-      seal: '',
+      viewer: '',
+      svfURL: './01/Resource/____/3D/3D.svf',
       //功能开关
       switch: {
         setMarkUp: false
@@ -18,43 +20,32 @@ export default {
     }
   },
   mounted() {
-    this.seal = new Seal(document.querySelector('#view'), {
-      name: '3d',
-      docid: './01/Resource/____/3D/3D.svf',
-      env: 'Local'
-    })
-
-    this.seal.on('geometry.loaded', () => {
-      if (this.switchsetMarkUp == true) {
-      }
-    })
-
-    this.seal.on('click', ele => {})
+    this.initializeViewer()
   },
   methods: {
-    addMarkUp() {
-      console.log(this.$store.state.switch)
+    initializeViewer() {
+      this.viewer = new Autodesk.Viewing.Private.GuiViewer3D(
+        document.getElementById('view'),
+        {
+          // extensions: ['Markup3D']
+        }
+      )
+      var options = {
+        env: 'Local',
+        useConsolidation: true,
+        useADP: false
+      }
+      Autodesk.Viewing.Initializer(options, () => {
+        this.viewer.start(this.svfURL, options, this.onSuccess)
+      })
     },
 
-    //代码开发测试
-    dev() {
-      let _this = this
-      this.seal.on('click', e => {
-        console.log(e)
-        // _this.seal.markupExtension.add(e.point, e.dbId)
-      })
+    onSuccess() {
+      // this.viewer.setBackgroundColor(0, 0, 0, 155, 155, 155)
+      this.viewer.impl.toggleGroundShadow(true)
+      // this.viewer.loadExtension('markup3d')
 
-      // this.seal.fitToView([16124])
-
-      this.seal.markupExtension.add(
-        {
-          x: -87.33223822421317,
-          y: -76.76081060058664,
-          z: -27.288406372070312
-        },
-        16124,
-        { innerHTML: '<i class="iconfont el-icon-bimgo-camera"></i>' }
-      )
+      console.log(this.viewer)
     }
   }
 }
