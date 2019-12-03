@@ -29,6 +29,6 @@ jobs:
         git config user.email "i@xiangjianfeng.com"
         git add .
         git commit -m "自动部署 from Actions"
-        git push --force --quiet "https://pt3t4goaa6op:fabeb64873e7030288c530b091eaa80521f2419a@e.coding.net/jue/html/metro.git" master:master
+        git push --force --quiet "https://${{secrets.CODING_KEY}}@e.coding.net/jue/html/metro.git" master:master
       env:
         CI: true
