@@ -1,11 +1,16 @@
 <template>
   <div class="view-box">
     <div id="view"></div>
+    <equipment-detail ref="equipmentDetail"></equipment-detail>
   </div>
 </template>
 <script>
 import axios from 'axios'
+import EquipmentDetail from '@/components/EquipmentDetail.vue'
 export default {
+  components: {
+    EquipmentDetail
+  },
   data() {
     return {
       seal: '',
@@ -26,8 +31,12 @@ export default {
     this.seal.on('click', ele => {
       console.log(ele)
 
-      if(this.$store.state.switch.setMarkUp){
-        if(this.seal.markupExtension.list && this.seal.markupExtension.list.length>0){
+      //设置标签
+      if (this.$store.state.switch.setMarkUp) {
+        if (
+          this.seal.markupExtension.list &&
+          this.seal.markupExtension.list.length > 0
+        ) {
           this.seal.markupExtension.removeAll()
         }
         this.setMarkUp()
@@ -36,10 +45,34 @@ export default {
           point: ele.point
         })
       }
-    })
 
+      //查看设备
+      if (
+        this.$route.name == 'equipment' &&
+        !this.$store.state.switch.setMarkUp
+      ) {
+        // this.$emit('showEqDtail')
+        this.$refs.equipmentDetail.drawer = true
+        this.$refs.equipmentDetail.dbId = ele.dbId
+      }
+    })
   },
   methods: {
+    showEquipmentStatus(data, color = '') {
+      this.seal.fitToView(data.dbid)
+      if (color != '') {
+        this.seal.clearThemingColors()
+        this.seal.setThemingColor(data.dbid, color)
+      }
+      this.seal.markupExtension.addByBounds(data.dbid, {
+        innerHTML: '<div class="model-tips"><span>故障处理中</span></div>'
+      })
+    },
+    //缩放并隔离构件集
+    showComponents(dbIdArr) {
+      this.seal.fitToView(dbIdArr)
+      this.seal.isolate(dbIdArr)
+    },
     //加载模型
     loadModel() {
       this.seal.loadModel(
@@ -63,7 +96,6 @@ export default {
           dbId: event.dbId,
           point: event.point
         })
-
       })
 
       return event
@@ -93,13 +125,13 @@ export default {
     },
 
     //添加标记符
-    addMarkUp(json, type){
+    addMarkUp(json, type) {
       console.log(json)
       var ele = '<i class="model-tag iconfont el-icon-bimgo-dingwei"></i>'
-      if(type == 'camera'){
+      if (type == 'camera') {
         ele = '<i class="model-tag iconfont el-icon-bimgo-camera"></i>'
       }
-      if(type == 'accident'){
+      if (type == 'accident') {
         ele = '<i class="model-tag iconfont el-icon-bimgo-accident"></i>'
       }
 
@@ -128,5 +160,37 @@ export default {
 }
 /deep/ .viewcubeWrapper {
   right: 60px;
+}
+
+.model-tips {
+  text-align: center;
+  font-size: 12px;
+  position: relative;
+  span {
+    display: inline-block;
+    border: 1px #f00 solid;
+    color: #f00;
+    border-radius: 3px;
+    padding: 2px 4px;
+    &:before {
+      position: absolute;
+      content: '';
+      height: 10px;
+      width: 2px;
+      background: #f00;
+      top: 100%;
+      left: calc(~'50% - 1px');
+    }
+    &:after {
+      position: absolute;
+      content: '';
+      height: 2px;
+      width: 6px;
+      background-color: rgba(153, 153, 153, 0.2);
+      top: calc(~'100% + 10px');
+      left: calc(~'50% - 3px');
+      border-radius: 4px;
+    }
+  }
 }
 </style>

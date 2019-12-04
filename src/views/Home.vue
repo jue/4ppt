@@ -7,11 +7,18 @@
       ref="view"
     ></Viewer>
     <!-- 左上角工具栏 -->
-    <Tools @changeStation="changeStation" class="tools abs z-2"></Tools>
+    <Tools @changeStation="changeStation" class="tools abs z-2" @seachEquipment="seachEquipment"></Tools>
     <Alert class="alert abs z-2"></Alert>
     <Info v-show="$store.state.showInfo"></Info>
     <div class="router-view abs z-2" v-if="showRouterView">
-      <router-view :tags="tags" @addMarkUp="addMarkUp" ref="routerview"></router-view>
+      <router-view 
+        :tags="tags" 
+        @addMarkUp="addMarkUp" 
+        ref="routerview"
+
+        @showComponents="showComponents" 
+        @showEquipmentStatus="showEquipmentStatus" 
+      ></router-view>
     </div>
 
     <Point :points="points" @restoreState="restoreState"></Point>
@@ -35,7 +42,6 @@ import Info from '@/components/Info.vue'
 import Point from '@/components/Point.vue'
 import PointEdit from '@/components/PointEdit.vue'
 import TagEdit from '@/components/TagEdit.vue'
-
 import axios from 'axios'
 export default {
   name: 'home',
@@ -83,6 +89,16 @@ export default {
     this.init()
   },
   methods: {
+    showEquipmentStatus(data, color){
+      this.$refs.view.showEquipmentStatus(data, color)
+    },
+    showComponents(arr){
+      this.$refs.view.showComponents(arr)
+    },
+    //搜索设备
+    seachEquipment(val){
+      this.$refs.routerview.filterText = val
+    },
     //设置模型标签
     addMarkUp() {
       this.tags.forEach(ele => {

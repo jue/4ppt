@@ -6,7 +6,7 @@
       </el-tooltip>
     </div>
     <div class="search-box">
-      <el-input class="key" placeholder="请输入内容" v-model="key"></el-input>
+      <el-input class="key" placeholder="请输入关键字" v-model="key"></el-input>
     </div>
     <div class="search-btn">
       <i class="iconfont el-icon-bimgo-search"></i>
@@ -56,6 +56,13 @@ export default {
       })
       this.$emit('changeStation', sid)
 
+    }
+  },
+  watch: {
+    key(){
+      if(this.$route.name == 'equipment'){
+        this.$emit('seachEquipment', this.key)
+      }
     }
   }
 }

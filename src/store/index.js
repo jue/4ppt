@@ -20,7 +20,7 @@ export default new Vuex.Store({
       "L01Z01": {
         "name": "窦关站",
         "forge_url": "https://filecdn.jue.sh/gyurt/L01Z01/Resource/____/3D/3D.svf",
-        // "forge_url": "./01/Resource/____/3D/3D.svf",
+        // "forge_url": "./gyurt-01/Resource/____/3D/3D.svf",
         "pointDataUrl": "https://api.myjson.com/bins/14tv2m",
         "tagDataUrl": "https://api.myjson.com/bins/h0qla"
       },
