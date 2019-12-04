@@ -24,6 +24,8 @@ export default {
     })
 
     this.seal.on('click', ele => {
+      console.log(ele)
+
       if(this.$store.state.switch.setMarkUp){
         if(this.seal.markupExtension.list && this.seal.markupExtension.list.length>0){
           this.seal.markupExtension.removeAll()
