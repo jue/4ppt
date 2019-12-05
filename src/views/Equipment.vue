@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     showEquipmentStatus(data){
-      this.$emit('showEquipmentStatus', data, '#f00')
+      this.$emit('showEquipmentStatus', data, '#ff5722')
     },
     getDbid(data, node) {
       let arr = []

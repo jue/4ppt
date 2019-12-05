@@ -5,8 +5,6 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    //是否显示车辆进站时间信息
-    showInfo: true,
     //默认车站_bimface
     defStation: {
       "id": "01",
@@ -22,13 +20,15 @@ export default new Vuex.Store({
         "forge_url": "https://filecdn.jue.sh/gyurt/L01Z01/Resource/____/3D/3D.svf",
         // "forge_url": "./gyurt-01/Resource/____/3D/3D.svf",
         "pointDataUrl": "https://api.myjson.com/bins/14tv2m",
-        "tagDataUrl": "https://api.myjson.com/bins/h0qla"
+        "tagDataUrl": "https://api.myjson.com/bins/if36c",
+        "accidentDataUrl": "https://api.myjson.com/bins/l1e8k"
       },
       "L01Z02": {
         "name": "林城西路",
         "forge_url": "https://filecdn.jue.sh/data/228159488-05--rvt/Resource/____/3D/3D.svf",
         "pointDataUrl": "https://api.myjson.com/bins/o6y1e",
-        "tagDataUrl": "https://api.myjson.com/bins/1bk9ui"
+        "tagDataUrl": "https://api.myjson.com/bins/13htzo",
+        "accidentDataUrl": "https://api.myjson.com/bins/zbsr8"
       }
     },
     //当前站点SID
@@ -42,13 +42,12 @@ export default new Vuex.Store({
 
     //功能开关
     switch: {
-      setMarkUp: false
+      setMarkUp: false,
+      showPoint: false,
+      showInfo: true
     }
   },
   mutations: {
-    update_showInfo(state, status) {
-      state.showInfo = status;
-    },
     update_currSid(state, sid) {
       state.currSid = sid;
     },
@@ -64,7 +63,14 @@ export default new Vuex.Store({
 
     update_setMarkUp(state, status) {
       state.switch.setMarkUp = status
+    },
+    update_showPoint(state, status) {
+      state.switch.showPoint = status
+    },
+    update_showInfo(state, status) {
+      state.switch.showInfo = status
     }
+
   },
   actions: {},
   modules: {}

@@ -12,7 +12,7 @@ export default {
   data() {
     return {
       viewer: '',
-      svfURL: './01/Resource/____/3D/3D.svf',
+      svfURL: 'https://filecdn.jue.sh/gyurt/L01Z01/Resource/____/3D/3D.svf',
       //功能开关
       switch: {
         setMarkUp: false

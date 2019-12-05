@@ -31,7 +31,7 @@
       <el-divider content-position="left">辅助功能</el-divider>
       <ul @click="menuSwitch" class="list">
         <li>
-          <a to="points" href="javascript:;">
+          <a to="points" href="javascript:;" @click="$store.commit('update_showPoint', !$store.state.switch.showPoint)">
             <i class="iconfont el-icon-bimgo-dongtaishijiao"></i>视角
           </a>
           <i @click="showPointEdit" class="more iconfont el-icon-bimgo-plus"></i>
@@ -46,7 +46,6 @@
           <router-link to="roam">
             <i class="iconfont el-icon-bimgo-luxian1"></i>路线漫游
           </router-link>
-          <i class="more iconfont el-icon-bimgo-plus"></i>
         </li>
       </ul>
       <el-divider content-position="left">开关</el-divider>
@@ -57,7 +56,7 @@
           </a>
         </li>
         <li>
-          <a @click="$store.state.showInfo = true" href="javascript:;">
+          <a @click="$store.commit('update_showInfo', !$store.state.switch.showInfo)" href="javascript:;">
             <i class="iconfont el-icon-bimgo-ditie1"></i>显示进站时间
           </a>
         </li>

@@ -126,7 +126,11 @@ export default {
         return false
       }
 
-      this.$emit('saveTag')
+      if (this.currTag.type == 'accident') {
+        this.$emit('saveAccident')
+      }else{
+        this.$emit('saveTag')
+      }
     }
   },
   watch: {

@@ -1,5 +1,5 @@
 <template>
-  <div :class="{open: open}" class="point-box">
+  <div :class="{open: $store.state.switch.showPoint}" class="point-box">
     <div @click="changeOpen" class="expand-button">
       <i class="iconfont el-icon-bimgo-dongtaishijiao"></i>
       <span>视角探索</span>
@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     changeOpen() {
-      this.open = !this.open
+      this.$store.commit('update_showPoint', !this.$store.state.switch.showPoint)
     },
     restoreState(state){
       this.$emit('restoreState', state)

@@ -2,16 +2,16 @@
   <el-card class="point-list" shadow="always">
     <div class="header">
       <div class="title">
-        <span>标签列表</span>
+        <span>客伤列表</span>
       </div>
     </div>
-    <div :key="index" class="list" v-for="(item, index) of tags">
+    <div :key="index" class="list" v-for="(item, index) of accident">
       <div class="txt">
         <div class="name">{{item.name}}</div>
         <div class="desc">{{item.desc}}</div>
       </div>
       <div class="icon">
-        <i @click="showDtail(item.forge_data)" class="iconfont el-icon-bimgo-camera"></i>
+        <i @click="showDtail(item.forge_data)" class="iconfont el-icon-bimgo-accident"></i>
       </div>
     </div>
   </el-card>
@@ -19,7 +19,7 @@
 <script>
 import axios from 'axios'
 export default {
-  props: ['tags'],
+  props: ['accident'],
   mounted() {},
   methods: {
     showDtail(json) {

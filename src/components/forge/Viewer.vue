@@ -33,16 +33,14 @@ export default {
 
       //设置标签
       if (this.$store.state.switch.setMarkUp) {
-        if (
-          this.seal.markupExtension.list &&
-          this.seal.markupExtension.list.length > 0
-        ) {
+        if (this.seal.markupExtension.list.length > 0) {
           this.seal.markupExtension.removeAll()
         }
         this.setMarkUp()
         this.$emit('getClickData', {
           dbId: ele.dbId,
-          point: ele.point
+          point: ele.point,
+          state: this.getState()
         })
       }
 
@@ -59,6 +57,9 @@ export default {
   },
   methods: {
     showEquipmentStatus(data, color = '') {
+      if (this.seal.markupExtension.list.length) {
+        this.seal.markupExtension.removeAll()
+      }
       this.seal.fitToView(data.dbid)
       if (color != '') {
         this.seal.clearThemingColors()
@@ -125,19 +126,19 @@ export default {
     },
 
     //添加标记符
-    addMarkUp(json, type) {
-      console.log(json)
-      var ele = '<i class="model-tag iconfont el-icon-bimgo-dingwei"></i>'
-      if (type == 'camera') {
-        ele = '<i class="model-tag iconfont el-icon-bimgo-camera"></i>'
+    addMarkUp(point, dbId, type = 'clear') {
+      if (this.seal.markupExtension.list.length && type == 'clear') {
+        this.seal.markupExtension.removeAll()
       }
-      if (type == 'accident') {
-        ele = '<i class="model-tag iconfont el-icon-bimgo-accident"></i>'
+      //临时添加
+      if (this.$route.name == 'tags') {
+        this.seal.markupExtension.add(point, dbId, {
+          innerHTML:
+            '<div class="model-tips"><svg viewBox="0 0 1024 1024"version="1.1"xmlns="http://www.w3.org/2000/svg"xmlns:xlink="http://www.w3.org/1999/xlink"width="30"height="30"><path d="M512 85.333333c-164.949333 0-298.666667 133.738667-298.666667 298.666667 0 164.949333 298.666667 554.666667 298.666667 554.666667s298.666667-389.717333 298.666667-554.666667c0-164.928-133.717333-298.666667-298.666667-298.666667z m0 448a149.333333 149.333333 0 1 1 0-298.666666 149.333333 149.333333 0 0 1 0 298.666666z"fill="#FF3D00"></path></svg><div class="info-box"><div class="head"><div class="name">摄像头</div></div><div class="body"><video width="100%"height="150"playsinline webkit-playsinline autoplay controls preload="auto"x-webkit-airplay="true"x5-video-player-fullscreen="true"x5-video-player-typ="h5"><source src="http://hls.open.ys7.com/openlive/65275bd31eab4b9794936d86248876e7.m3u8"type="application/x-mpegURL"></video></div></div></div>'
+        })
+      } else {
+        this.seal.markupExtension.add(point, dbId)
       }
-
-      this.seal.markupExtension.add(json.point, json.dbId, {
-        innerHTML: ele
-      })
     }
   },
   watch: {
@@ -162,7 +163,7 @@ export default {
   right: 60px;
 }
 
-.model-tips {
+/deep/ .model-tips {
   text-align: center;
   font-size: 12px;
   position: relative;
@@ -190,6 +191,36 @@ export default {
       top: calc(~'100% + 10px');
       left: calc(~'50% - 3px');
       border-radius: 4px;
+    }
+  }
+  svg {
+  }
+  .info-box {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    z-index: 2;
+    background: #008cd6;
+    width: 250px;
+  }
+  .head {
+    font-size: 14px;
+    color: #fff;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    line-height: 24px;
+    cursor: move;
+    .name {
+      flex: 1;
+    }
+  }
+  .body {
+    background: #fff;
+    margin: 0 5px 5px;
+    font-size: 12px;
+    video {
+      vertical-align: bottom;
     }
   }
 }

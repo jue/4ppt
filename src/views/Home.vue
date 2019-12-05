@@ -7,17 +7,18 @@
       ref="view"
     ></Viewer>
     <!-- 左上角工具栏 -->
-    <Tools @changeStation="changeStation" class="tools abs z-2" @seachEquipment="seachEquipment"></Tools>
+    <Tools @changeStation="changeStation" @seachEquipment="seachEquipment" class="tools abs z-2"></Tools>
     <Alert class="alert abs z-2"></Alert>
-    <Info v-show="$store.state.showInfo"></Info>
+    <Info v-show="$store.state.switch.showInfo"></Info>
     <div class="router-view abs z-2" v-if="showRouterView">
-      <router-view 
-        :tags="tags" 
-        @addMarkUp="addMarkUp" 
+      <router-view
+        :accident="accident"
+        :tags="tags"
+        @addMarkUp="addMarkUp"
+        @restoreState="restoreState"
+        @showComponents="showComponents"
+        @showEquipmentStatus="showEquipmentStatus"
         ref="routerview"
-
-        @showComponents="showComponents" 
-        @showEquipmentStatus="showEquipmentStatus" 
       ></router-view>
     </div>
 
@@ -28,7 +29,7 @@
       @getState="getState"
       @savePoint="savePoint"
     ></point-edit>
-    <Tag-edit ref="tagEdit" :currTag="currTag" @saveTag="saveTag"></Tag-edit>
+    <Tag-edit :currTag="currTag" @saveTag="saveTag" @saveAccident="saveAccident" ref="tagEdit"></Tag-edit>
   </div>
 </template>
 
@@ -59,6 +60,7 @@ export default {
       showRouterView: false,
       points: [], //视角列表
       tags: [], //标签列表
+      accident: [], //客伤列表
       isShowPointEdit: false, //是否显示视角编辑框
       currPoint: {
         name: '',
@@ -89,21 +91,32 @@ export default {
     this.init()
   },
   methods: {
-    showEquipmentStatus(data, color){
+    showEquipmentStatus(data, color) {
       this.$refs.view.showEquipmentStatus(data, color)
     },
-    showComponents(arr){
+    showComponents(arr) {
       this.$refs.view.showComponents(arr)
     },
     //搜索设备
-    seachEquipment(val){
-      this.$refs.routerview.filterText = val
+    seachEquipment(val) {
+      this.$refs.routerview.filteraddMarkUpText = val
     },
     //设置模型标签
-    addMarkUp() {
-      this.tags.forEach(ele => {
-        this.$refs.view.addMarkUp(ele.forge_data, ele.type)
-      })
+    addMarkUp(point, dbId) {
+      this.$refs.view.addMarkUp(point, dbId, 'clear')
+
+
+      // if (this.$route.name == 'accident') {
+      //   this.accident.forEach(ele => {
+      //     this.$refs.view.addMarkUp(ele.forge_data, ele.type)
+      //   })
+      // }
+
+      // if (this.$route.name == 'tags') {
+      //   this.tags.forEach(ele => {
+      //     this.$refs.view.addMarkUp(ele.forge_data, ele.type)
+      //   })
+      // }
     },
     //点击模型获取当前构件数据
     getClickData(json) {
@@ -124,19 +137,27 @@ export default {
         this.showRouterView = true
       }
     },
-    //保存标记点
+    //保存标签点
     saveTag() {
       this.tags.push(this.currTag)
-      axios
-        .put(
-          this.$store.state.stationList[this.$store.state.currSid].tagDataUrl,
-          this.tags
-        )
-        .then(res => {
-          this.$message.success('标签保存成功')
-          this.$refs.tagEdit.reset()
-          this.$store.commit('update_showTagEdit', false)
-        })
+      axios.put(this.$store.state.stationList[this.$store.state.currSid]
+        .tagDataUrl, this.tags).then(res => {
+        this.$message.success('标签保存成功')
+        this.$refs.tagEdit.reset()
+        this.$store.commit('update_showTagEdit', false)
+        this.$store.commit('update_setMarkUp', true)
+      })
+    },
+    //保存客伤
+    saveAccident() {
+      this.accident.push(this.currTag)
+      axios.put(this.$store.state.stationList[this.$store.state.currSid]
+          .accidentDataUrl, this.accident).then(res => {
+        this.$message.success('标签保存成功')
+        this.$refs.tagEdit.reset()
+        this.$store.commit('update_showTagEdit', false)
+        this.$store.commit('update_setMarkUp', true)
+      })
     },
     //保存视角
     savePoint() {
@@ -181,10 +202,23 @@ export default {
         })
     },
 
+    //获取当前车站所有客伤信息
+    getAccidentList() {
+      axios
+        .get(
+          this.$store.state.stationList[this.$store.state.currSid]
+            .accidentDataUrl
+        )
+        .then(res => {
+          this.accident = res.data
+        })
+    },
+
     //第一次打开
     init() {
       this.getPointsList()
       this.getTagsList()
+      this.getAccidentList()
     },
 
     //切换车站

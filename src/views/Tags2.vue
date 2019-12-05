@@ -3,15 +3,36 @@
     <div class="header">
       <div class="title">
         <span>标签列表</span>
+        <small v-if="showSubTxt">
+          你当前选择了
+          <strong :class="getTypeType(type)">客伤事故</strong> 标签
+          <i @click="getData('all')" class="iconfont el-icon-bimgo-close-circle-fill"></i>
+        </small>
       </div>
+      <el-dropdown trigger="click">
+        <i class="iconfont el-icon-bimgo-down"></i>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item @click.native="getData('camera')" icon="el-icon-bimgo-camera">摄像头</el-dropdown-item>
+          <el-dropdown-item @click.native="getData('accident')" icon="el-icon-bimgo-accident">客伤事故</el-dropdown-item>
+          <el-dropdown-item @click.native="getData('all')" icon="el-icon-bimgo-biaoqian">全部</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
     </div>
-    <div :key="index" class="list" v-for="(item, index) of tags">
+    <div :key="index" class="list" v-for="(item, index) of list">
       <div class="txt">
         <div class="name">{{item.name}}</div>
         <div class="desc">{{item.desc}}</div>
+        <div class="tag">
+          <el-tag
+            :type="getTypeType(item.type)"
+            @click="getData(item.type)"
+            effect="dark"
+            size="mini"
+          >{{getTypeText(item.type)}}</el-tag>
+        </div>
       </div>
       <div class="icon">
-        <i @click="showDtail(item.forge_data)" class="iconfont el-icon-bimgo-camera"></i>
+        <i :class="getClassName(item.type)" class="iconfont"></i>
       </div>
     </div>
   </el-card>
@@ -20,11 +41,70 @@
 import axios from 'axios'
 export default {
   props: ['tags'],
-  mounted() {},
+  data() {
+    return {
+      list: [],
+      showSubTxt: false, //是否显示分类提示
+      type: 'all'
+    }
+  },
+  mounted() {
+    this.list = this.tags
+    console.log(this.$route.jquery.type) 
+    this.getData('all')
+  },
   methods: {
-    showDtail(json) {
-      this.$emit('restoreState', json.state)
-      this.$emit('addMarkUp', json.point, json.dbId)
+    getClassName(type) {
+      return 'el-icon-bimgo-' + type
+    },
+
+    getTypeText(type) {
+      switch (type) {
+        case 'camera':
+          return '摄像头'
+          break
+        case 'accident':
+          return '客伤事故'
+          break
+      }
+    },
+
+    getTypeType(type) {
+      switch (type) {
+        case 'camera':
+          return ''
+          break
+        case 'accident':
+          return 'danger'
+          break
+      }
+    },
+
+    getData(type) {
+
+      this.$router.push({
+        query: {
+          type: type
+        }
+      })
+
+      if (type == 'all') {
+        this.list = this.tags
+        this.showSubTxt = false
+        this.type = 'all'
+        this.$emit('addMarkUp')
+        return false
+      }
+
+      this.list = []
+      this.showSubTxt = true
+      this.type = type
+      this.tags.forEach(ele => {
+        if (ele.type == type) {
+          this.list.push(ele)
+        }
+      })
+      this.$emit('addMarkUp')
     }
   }
 }
