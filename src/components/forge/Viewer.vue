@@ -193,8 +193,6 @@ export default {
       border-radius: 4px;
     }
   }
-  svg {
-  }
   .info-box {
     position: absolute;
     top: 0;
