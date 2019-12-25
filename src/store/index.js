@@ -21,7 +21,7 @@ export default new Vuex.Store({
         // "forge_url": "./gyurt-01/Resource/____/3D/3D.svf",
         "pointDataUrl": "https://api.myjson.com/bins/14tv2m",
         "tagDataUrl": "https://api.myjson.com/bins/if36c",
-        "accidentDataUrl": "https://api.myjson.com/bins/l1e8k"
+        "accidentDataUrl": "https://api.myjson.com/bins/py26w"
       },
       "L01Z02": {
         "name": "林城西路",

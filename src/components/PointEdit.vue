@@ -7,11 +7,11 @@
     <div class="body">
       <div class="preview">
         <div class="def-preview">
-          <el-button @click="addState" class="get-btn" round size="mini">获取视角</el-button>
+          <el-button @click="addState" class="get-btn" round size="mini" :loading="loading">获取视角</el-button>
         </div>
         <img :src="currPoint.shot" class="img" v-if="currPoint.shot" />
         <div class="get">
-          <el-button @click="addState" class="get-btn" round size="mini">获取视角</el-button>
+          <el-button @click="addState" class="get-btn" round size="mini":loading="loading">获取视角</el-button>
         </div>
       </div>
 
@@ -26,6 +26,11 @@
 import axios from 'axios'
 export default {
   props: ['currPoint'],
+  data(){
+    return {
+      loading: false
+    }
+  },
   methods: {
     closeWindow() {
       this.$store.commit('update_showPointEdit', false)
@@ -51,6 +56,7 @@ export default {
               let data = new FormData()
               data.append('smfile', myBlob)
               axios.post('https://sm.ms/api/upload', data).then(res => {
+                this.loading = false
                 if (res.data.code == 'success') {
                   //成功返回图片后
                   _this.currPoint.shot = res.data.data.url
@@ -69,6 +75,7 @@ export default {
 
     //新增视角
     addState() {
+      this.loading = true
       this.getState()
       this.getShot()
     },

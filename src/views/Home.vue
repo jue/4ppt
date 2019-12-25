@@ -1,5 +1,6 @@
 <template>
   <div class="bim-box" v-loading.fullscreen.lock="!modelLoaded">
+  <!-- <div class="bim-box"> -->
     <Viewer
       @getClickData="getClickData"
       @modelLoaded="modelLoaded=true"
@@ -18,6 +19,7 @@
         @restoreState="restoreState"
         @showComponents="showComponents"
         @showEquipmentStatus="showEquipmentStatus"
+        @activeHeatmap="activeHeatmap"
         ref="routerview"
       ></router-view>
     </div>
@@ -91,6 +93,9 @@ export default {
     this.init()
   },
   methods: {
+    activeHeatmap(heatmap){
+      this.$refs.view.activeHeatmap(heatmap)
+    },
     showEquipmentStatus(data, color) {
       this.$refs.view.showEquipmentStatus(data, color)
     },

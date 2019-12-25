@@ -7,7 +7,12 @@
     </div>
     <div class="list">
       <div class="items">
-        <div :key="index" class="item" v-for="(item, index) of points" @click="restoreState(item.state)">
+        <div
+          :key="index"
+          class="item"
+          v-for="(item, index) of points"
+          @click="restoreState(item.state)"
+        >
           <img :src="item.shot" class="pic" />
           <div class="txt">
             <i class="iconfont el-icon-bimgo-dongtaishijiao"></i>
@@ -26,29 +31,32 @@
   </div>
 </template>
 <script>
-import axios from 'axios'
+import axios from "axios";
 export default {
-  props: ['points'],
+  props: ["points"],
   data() {
     return {
       open: false, //视角列表是否打开
       isEdit: false, //是否编辑视角列表
       tmpPoint: {
-        name: '22',
+        name: "22",
         state: {},
-        shot: ''
+        shot: ""
       }
-    }
+    };
   },
   methods: {
     changeOpen() {
-      this.$store.commit('update_showPoint', !this.$store.state.switch.showPoint)
+      this.$store.commit(
+        "update_showPoint",
+        !this.$store.state.switch.showPoint
+      );
     },
-    restoreState(state){
-      this.$emit('restoreState', state)
+    restoreState(state) {
+      this.$emit("restoreState", state);
     }
   }
-}
+};
 </script>
 <style lang="less" scoped>
 .point-box {
@@ -115,10 +123,11 @@ export default {
     }
   }
   .items {
-    display: -webkit-box;
-    flex: 1;
     overflow-x: auto;
+    white-space: nowrap;
     .item {
+      display: inline-block;
+      white-space: normal;
       width: 203px;
       height: 100px;
       position: relative;

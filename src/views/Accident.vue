@@ -4,6 +4,16 @@
       <div class="title">
         <span>客伤列表</span>
       </div>
+      <div class="btn-hotmap">
+        <el-tooltip content="热力图" placement="right">
+          <div class="icon-box" @click="activeHeatmap">
+            <i class="iconfont el-icon-bimgo-hotmap" v-show="!heatmap"></i>
+            <svg class="icon" aria-hidden="true" v-show="heatmap">
+              <use xlink:href="#el-icon-bimgo-hotmap" />
+            </svg>
+          </div>
+        </el-tooltip>
+      </div>
     </div>
     <div :key="index" class="list" v-for="(item, index) of accident">
       <div class="txt">
@@ -17,17 +27,26 @@
   </el-card>
 </template>
 <script>
-import axios from 'axios'
+import axios from "axios";
 export default {
-  props: ['accident'],
+  props: ["accident"],
+  data() {
+    return {
+      heatmap: false
+    }
+  },
   mounted() {},
   methods: {
     showDtail(json) {
-      this.$emit('restoreState', json.state)
-      this.$emit('addMarkUp', json.point, json.dbId)
+      this.$emit("restoreState", json.state);
+      this.$emit("addMarkUp", json.point, json.dbId);
+    },
+    activeHeatmap(){
+      this.heatmap = !this.heatmap
+      this.$emit("activeHeatmap", this.heatmap)
     }
   }
-}
+};
 </script>
 <style lang="less" scoped>
 /deep/ .el-card__body {
@@ -69,6 +88,18 @@ export default {
       }
     }
   }
+  .btn-hotmap {
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    .iconfont {
+      font-size: 25px;
+    }
+    .icon {
+      height: 25px;
+      width: 25px;
+    }
+  }
   /deep/ .el-dropdown {
     display: flex;
     width: 49px;
@@ -88,6 +119,10 @@ export default {
       }
     }
   }
+}
+
+.icon-box{
+  cursor: pointer;
 }
 .list {
   display: flex;

@@ -15,8 +15,8 @@
 }
 body {
   color: #303133;
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
@@ -38,14 +38,40 @@ img {
 #app {
   min-height: 100vh;
 }
-[class*=' el-icon-bimgo-'],
-[class^='el-icon-bimgo-'] {
-  font-family: 'iconfont' !important;
+[class*=" el-icon-bimgo-"],
+[class^="el-icon-bimgo-"] {
+  font-family: "iconfont" !important;
 }
 
-::-webkit-scrollbar {
-  display: none;
+.icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
 }
+
+// ::-webkit-scrollbar {
+//   display: none;
+// }
+
+/* 滚动槽 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.06);
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.08);
+}
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.12);
+  -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
 .model-tag {
   color: #409eff;
   font-size: 20px;
